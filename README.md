@@ -33,18 +33,18 @@ Set the basics render settings for a nice and quick render, which change automat
 v0.2.2 Logs
 
 
-v0.2.1 Logs
+## v0.2.1 Logs
 
   Features
   
-    - Spread Angle slider to change the angle of the spot light
-    - Rounded Radius to smoothly switch between a square and circle shape
-    - Add width and height to change the aspect ratio keeping same rounded radius
+  - Spread Angle slider to change the angle of the spot light
+  - Rounded Radius to smoothly switch between a square and circle shape
+  - Add width and height to change the aspect ratio keeping same rounded radius
   
   Fix
   
-    - Fix no light in render when un-check "View Camera"
-    - Some renaming, ordering of the nodes
-    - Display switch to wire to have a clean overview of the scene when using a lot of lights
-    - Rewriting the gradient algorithm for better quality
+  - Fix no light in render when un-check "View Camera"
+  - Some renaming, ordering of the nodes
+  - Display switch to wire to have a clean overview of the scene when using a lot of lights
+  - Rewriting the gradient algorithm for better quality
 
