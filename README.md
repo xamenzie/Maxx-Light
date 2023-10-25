@@ -34,10 +34,10 @@ Set the basics render settings for a nice and quick render, which change automat
 
 Create basic collection strucure when setup a new scene, to keep organised. It presents with this tree structure :
 
-.Scene<br>
-.Tech<br>
-  .gr_Lights<br>
-  .gr_Cam<br>
+__ Scene<br>
+__ Tech<br>
+_____ gr_Lights<br>
+_____ gr_Cam<br>
 
 ## Updates
 
