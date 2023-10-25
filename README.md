@@ -1,5 +1,3 @@
-# Maxx Utilities
-
 It's a Blender Addon that help to save time with some tools. It presents as a Pie Menu accessible with Ctrl + D shortcut.
 
 # Maxx Light
@@ -29,6 +27,8 @@ Set the basics render settings for a nice and quick render, which change automat
   - Desactivate light tree
   - Setup simple bounces for the lights
   - Set the render output to PNG RGBA 16bits
+
+#Updates
 
 v0.2.2 Logs
 
