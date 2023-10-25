@@ -1,4 +1,4 @@
-# Maxx-Light
+# Maxx Utilities
 
 A "go to" light to use in almost every situation. Meant to be used as an assets.
 
