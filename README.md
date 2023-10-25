@@ -28,7 +28,7 @@ Set the basics render settings for a nice and quick render, which change automat
   - Setup simple bounces for the lights
   - Set the render output to PNG RGBA 16bits
 
-#Updates
+# Updates
 
 v0.2.2 Logs
 
