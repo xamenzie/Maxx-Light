@@ -6,10 +6,10 @@ bl_info = {
     "author": "La menace",
     "version": (0, 2, 2),
     "blender": (3, 6, 5),
-    "location": "Hotkey -D- to open the pie menu",
+    "location": "Hotkey -Ctrl + D- to open the pie menu",
     "warning": "",
     "doc_url": "",
-    "category": "Add Ligh, change quick render settings",
+    "category": "Some utilities to save time",
 }
 
 # Setup Render Settings Operator
@@ -83,7 +83,7 @@ def register():
     # Keymap registration
     wm = bpy.context.window_manager
     km = wm.keyconfigs.addon.keymaps.new(name="Window", space_type="EMPTY")
-    kmi = km.keymap_items.new("wm.call_menu_pie", "D", "PRESS")
+    kmi = km.keymap_items.new("wm.call_menu_pie", 'D', 'PRESS', ctrl=True)
     kmi.properties.name = "RENDER_MT_pie_setup"
     addon_keymaps.append((km, kmi))
 
