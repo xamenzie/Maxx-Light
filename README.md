@@ -1,6 +1,8 @@
+# Maxx Utilities
+
 It's a Blender Addon that help to save time with some tools. It presents as a Pie Menu accessible with Ctrl + D shortcut.
 
-# Maxx Light
+## Maxx Light
 
 A "go to" light to use in almost every situation. Meant to be used as an assets.
 
@@ -17,7 +19,7 @@ Maxx Light Features :
   - Only one side : Switch between only one side that emit light and the two side
   - Spread Angle : Adjust the angle of the light, with a low angle the light will be very sharp with sharp shadow
 
-# Quick render settings
+## Quick render settings
 
 Set the basics render settings for a nice and quick render, which change automatically these settings when used :
 
@@ -28,12 +30,12 @@ Set the basics render settings for a nice and quick render, which change automat
   - Setup simple bounces for the lights
   - Set the render output to PNG RGBA 16bits
 
-# Updates
+## Updates
 
 v0.2.2 Logs
 
 
-#### v0.2.1 Logs
+### v0.2.1 Logs
 
   Features
   
