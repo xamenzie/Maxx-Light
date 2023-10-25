@@ -6,11 +6,40 @@ bl_info = {
     "author": "La menace",
     "version": (0, 2, 2),
     "blender": (3, 6, 5),
-    "location": "Hotkey -Ctrl + D- to open the pie menu",
+    "location": "Hotkey Ctrl + D to open the pie menu",
     "warning": "",
     "doc_url": "",
-    "category": "Some utilities to save time",
+    "category": "",
 }
+
+# Add basics collections
+class BasicCollections(bpy.types.Operator):
+    bl_idname = "collection.add_structure"
+    bl_label = "Add Collections Structure"
+    bl_description = "Create basic tree structure of collections"
+    
+    def execute(self, context):
+        
+        # Create the "Scene" collection and set its label color to green
+        scene_collection = bpy.data.collections.new("Scene")
+        scene_collection.color_tag = "COLOR_04"  # Green
+        bpy.context.scene.collection.children.link(scene_collection)
+
+        # Create the "Tech" collection and set its label color to cyan
+        tech_collection = bpy.data.collections.new("Tech")
+        tech_collection.color_tag = "COLOR_05"  # Cyan
+        bpy.context.scene.collection.children.link(tech_collection)
+
+        # Create "gr_Lights" and "gr_Cam" collections inside "Tech" and set their label color to cyan
+        gr_lights_collection = bpy.data.collections.new("gr_Lights")
+        gr_lights_collection.color_tag = "COLOR_05"  # Cyan
+        tech_collection.children.link(gr_lights_collection)
+
+        gr_cam_collection = bpy.data.collections.new("gr_Cam")
+        gr_cam_collection.color_tag = "COLOR_05"  # Cyan
+        tech_collection.children.link(gr_cam_collection)
+        
+        return {'FINISHED'}
 
 # Setup Render Settings Operator
 class SetupRenderSettingsOperator(bpy.types.Operator):
@@ -57,6 +86,7 @@ def main(context):
 class AddLightOperator(bpy.types.Operator):
     bl_idname = "object.add_light_operator"
     bl_label = "Add a Light"
+    bl_description = "Add a procedural light easy to use for great quality render"
 
     def execute(self, context):
         main(context)
@@ -70,14 +100,17 @@ class RENDER_MT_pie_setup(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         pie = layout.menu_pie()
-        pie.operator("render.setup_render_settings", text="Setup Quick Render Settings")
+        pie.operator("render.setup_render_settings", text="Quick Render Settings")
         pie.operator("object.add_light_operator", text="Add a Maxx Light")
+        pie.separator()
+        pie.operator("collection.add_structure", text="Basic Collection structure")
 
 addon_keymaps = []
 
 def register():
     bpy.utils.register_class(SetupRenderSettingsOperator)
     bpy.utils.register_class(AddLightOperator)
+    bpy.utils.register_class(BasicCollections)
     bpy.utils.register_class(RENDER_MT_pie_setup)
 
     # Keymap registration
@@ -90,6 +123,7 @@ def register():
 def unregister():
     bpy.utils.unregister_class(SetupRenderSettingsOperator)
     bpy.utils.unregister_class(AddLightOperator)
+    bpy.utils.unregister_class(BasicCollections)
     bpy.utils.unregister_class(RENDER_MT_pie_setup)
 
     # Keymap unregister
