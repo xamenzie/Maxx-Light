@@ -30,10 +30,28 @@ Set the basics render settings for a nice and quick render, which change automat
   - Setup simple bounces for the lights
   - Set the render output to PNG RGBA 16bits
 
+## Basic Collections structure
+
+Create basic collection strucure when setup a new scene, to keep organised. It presents with this tree structure :
+
+__ Scene
+__ Tech
+_____ gr_Lights
+_____ gr_Cam
+
 ## Updates
 
-### v0.2.2 Logs
+### v0.2.2
 
+  Features
+
+  - Addon switch to a Pie menu instead of a button, which is even more quick to use
+  - Quick render settings
+  - Basic Collections structure
+
+  Fix
+
+  - new way of calculating the spread angle for the light, with less noise
 
 ### v0.2.1
 
