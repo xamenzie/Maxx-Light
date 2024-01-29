@@ -4,8 +4,8 @@ import os
 bl_info = {
     "name": "Maxx Utilities",
     "author": "La menace",
-    "version": (0, 2, 2),
-    "blender": (3, 6, 5),
+    "version": (0, 3, 0),
+    "blender": (4, 0, 2),
     "location": "Hotkey Ctrl + D to open the pie menu",
     "warning": "",
     "doc_url": "",
@@ -52,9 +52,9 @@ class SetupRenderSettingsOperator(bpy.types.Operator):
 
         cycles.device = 'GPU'
         cycles.use_adaptive_sampling = True
-        cycles.adaptive_threshold = 0.04
-        cycles.samples = 1000
-        cycles.use_denoising = False
+        cycles.adaptive_threshold = 0.02
+        cycles.samples = 800
+        cycles.use_denoising = True
         cycles.use_light_tree = False
 
         cycles.max_bounces = 8
