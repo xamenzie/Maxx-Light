@@ -41,6 +41,13 @@ _____ gr_Cam<br>
 
 ## Updates
 
+### v0.3.0
+
+  Features
+
+  - New system of light, based on the aera light which is more fast and stable in the render, still WIP for now
+  - Change basic settings, noise threshold from 0.04 to 0.02, sample from 1000 to 800 and activate the denoise in the render
+
 ### v0.2.2
 
   Features
