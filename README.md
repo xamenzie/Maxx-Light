@@ -35,6 +35,11 @@ __ Tech<br>
 _____ gr_Lights<br>
 _____ gr_Cam<br>
 
+## To do
+
+  - Add the ability the add image texture or noise pattern in the light very easily
+  - Import the light at the current cursor position
+
 ## Updates
 
 ### v0.3.0
