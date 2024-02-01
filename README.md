@@ -14,11 +14,7 @@ Maxx Light Features :
   - WB coloration : to rapidly colored the light based on kelvin temperature
   - A damped track is already setup, you can simply eye drop any object to make it work
 
-    ![round_corner](https://github.com/xamenzie/Maxx-Utilities/assets/50946132/d1a1adcb-d02b-4441-824e-1f98978f3fd5) ![gradient](https://github.com/xamenzie/Maxx-Utilities/assets/50946132/cc348784-4695-470a-86e4-492ea0c11ce7)
-
-<img src="[/images/output/video1.gif](https://github.com/xamenzie/Maxx-Utilities/assets/50946132/d1a1adcb-d02b-4441-824e-1f98978f3fd5)" width="250" height="250"/> <img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/cc348784-4695-470a-86e4-492ea0c11ce7" width="250" height="250"/>
-
-
+<img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/d1a1adcb-d02b-4441-824e-1f98978f3fd5)" width="250" height="250"/> <img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/cc348784-4695-470a-86e4-492ea0c11ce7" width="250" height="250"/>
 
 
 ## Quick render settings
