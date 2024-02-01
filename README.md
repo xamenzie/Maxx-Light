@@ -42,6 +42,7 @@ _____ gr_Cam<br>
 
   - Add the ability the add image texture or noise pattern in the light very easily
   - Import the light at the current cursor position
+  - Exponant the light power
 
 ## Updates
 
