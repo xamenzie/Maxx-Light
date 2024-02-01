@@ -4,7 +4,7 @@ It's a Blender Addon that help to save time with some tools. It presents as a Pi
 
 ## Maxx Light
 
-A boosted Aera light with some added features.
+An Aera light with some added features.
 
 Maxx Light Features :
 
@@ -28,7 +28,7 @@ Set the basics render settings for a nice and quick render, which change automat
 
 ## Basic Collections structure
 
-Create basic collection strucure when setup a new scene, to keep organised. It presents with this tree structure :
+Create basic collection strucure to keep organised. It presents with this tree structure :
 
 __ Scene<br>
 __ Tech<br>
