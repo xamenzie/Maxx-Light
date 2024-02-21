@@ -4,7 +4,7 @@ import os
 bl_info = {
     "name": "Maxx Utilities",
     "author": "La menace",
-    "version": (0, 3, 0),
+    "version": (0, 3, 2),
     "blender": (4, 0, 2),
     "location": "Hotkey Ctrl + D to open the pie menu",
     "warning": "",
@@ -43,9 +43,43 @@ class BasicCollections(bpy.types.Operator):
 
 # Setup Render Settings Operator
 class SetupRenderSettingsOperator(bpy.types.Operator):
-    bl_idname = "render.setup_render_settings"
-    bl_label = "Setup Render Settings"
-    bl_description = "Quickly set up render settings for quality/fast rendering"
+    bl_idname = "render.setup_still_render_settings"
+    bl_label = "Still Render Settings"
+    bl_description = "Quickly set up render settings for stills"
+
+    def execute(self, context):
+        cycles = bpy.context.scene.cycles
+
+        cycles.device = 'GPU'
+        cycles.use_adaptive_sampling = True
+        cycles.adaptive_threshold = 0.01
+        cycles.samples = 800
+        cycles.use_denoising = True
+        cycles.denoiser = 'OPENIMAGEDENOISE'
+
+
+        cycles.use_light_tree = False
+
+        cycles.max_bounces = 8
+        cycles.diffuse_bounces = 4
+        cycles.glossy_bounces = 4
+        cycles.transmission_bounces = 8
+        cycles.volume_bounces = 0
+        cycles.transparent_max_bounces = 8
+        
+        bpy.context.scene.render.image_settings.file_format = 'PNG'
+        bpy.context.scene.render.image_settings.color_mode = 'RGBA'
+        bpy.context.scene.render.image_settings.color_depth = '16'
+        bpy.context.scene.render.use_persistent_data = True
+
+
+        return {'FINISHED'}
+    
+# Setup Render Settings Operator
+class SetupAnimationRenderSettingsOperator(bpy.types.Operator):
+    bl_idname = "render.setup_animation_render_settings"
+    bl_label = "Animation Render Settings"
+    bl_description = "Quickly set up render settings for animation"
 
     def execute(self, context):
         cycles = bpy.context.scene.cycles
@@ -55,11 +89,13 @@ class SetupRenderSettingsOperator(bpy.types.Operator):
         cycles.adaptive_threshold = 0.02
         cycles.samples = 800
         cycles.use_denoising = True
+        cycles.denoiser = 'OPTIX'
+
         cycles.use_light_tree = False
 
         cycles.max_bounces = 8
-        cycles.diffuse_bounces = 3
-        cycles.glossy_bounces = 3
+        cycles.diffuse_bounces = 4
+        cycles.glossy_bounces = 4
         cycles.transmission_bounces = 8
         cycles.volume_bounces = 0
         cycles.transparent_max_bounces = 8
@@ -67,6 +103,7 @@ class SetupRenderSettingsOperator(bpy.types.Operator):
         bpy.context.scene.render.image_settings.file_format = 'PNG'
         bpy.context.scene.render.image_settings.color_mode = 'RGBA'
         bpy.context.scene.render.image_settings.color_depth = '16'
+        bpy.context.scene.render.use_persistent_data = True
 
         return {'FINISHED'}
 
@@ -76,12 +113,21 @@ def main(context):
     blend_file_rel_path = 'Maxx_Light.blend'
     file_path = os.path.join(addon_dir, blend_file_rel_path)
     inner_path = 'Object'
-    object_name = 'Maxx_Light'
+    object_name = 'Aera'
+
+    # Import at origin
     bpy.ops.wm.append(
         filepath=os.path.join(file_path, inner_path, object_name),
         directory=os.path.join(file_path, inner_path),
         filename=object_name
     )
+
+    # Get imported object and cursor location
+    imported_object = bpy.context.selected_objects[0]
+    cursor_location = bpy.context.scene.cursor.location
+
+    # Move object to cursor
+    imported_object.location = cursor_location
 
 class AddLightOperator(bpy.types.Operator):
     bl_idname = "object.add_light_operator"
@@ -100,15 +146,17 @@ class RENDER_MT_pie_setup(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         pie = layout.menu_pie()
-        pie.operator("render.setup_render_settings", text="Quick Render Settings")
-        pie.operator("object.add_light_operator", text="Add a Maxx Light")
-        pie.separator()
+        pie.operator("render.setup_still_render_settings", text="Stills Render Settings")
+        pie.operator("object.add_light_operator", text="Add Aera Light")
         pie.operator("collection.add_structure", text="Basic Collection structure")
+        pie.separator()
+        pie.operator("render.setup_animation_render_settings", text="Animation Render Settings")
 
 addon_keymaps = []
 
 def register():
     bpy.utils.register_class(SetupRenderSettingsOperator)
+    bpy.utils.register_class(SetupAnimationRenderSettingsOperator)
     bpy.utils.register_class(AddLightOperator)
     bpy.utils.register_class(BasicCollections)
     bpy.utils.register_class(RENDER_MT_pie_setup)
@@ -122,6 +170,7 @@ def register():
 
 def unregister():
     bpy.utils.unregister_class(SetupRenderSettingsOperator)
+    bpy.utils.register_class(SetupAnimationRenderSettingsOperator)
     bpy.utils.unregister_class(AddLightOperator)
     bpy.utils.unregister_class(BasicCollections)
     bpy.utils.unregister_class(RENDER_MT_pie_setup)
