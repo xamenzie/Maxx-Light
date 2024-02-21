@@ -28,6 +28,7 @@ Set the basics render settings for a nice and quick render, which change automat
   - Desactivate light tree
   - Setup simple bounces for the lights
   - Set the render output to PNG RGBA 16bits
+  - Activate persitent data
 
 ## Basic Collections structure
 
@@ -45,6 +46,15 @@ _____ gr_Cam<br>
   - Exponant the light power
 
 ## Updates
+
+### v0.3.2
+
+  Features & Fix
+
+  - The Aera light is now imported at the 3d cursor
+  - Added Animation and Still quick render settings, changing between Optix (for anime) and Openimagedenoise and switching noise threshold between 0.02 and 0.01
+  - Activate persitent data
+  - Removed Gobo texture, too much bugs for now
 
 ### v0.3.0
 
