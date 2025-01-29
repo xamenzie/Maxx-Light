@@ -4,8 +4,8 @@ import os
 bl_info = {
     "name": "Maxx Utilities",
     "author": "La menace",
-    "version": (0, 3, 2),
-    "blender": (4, 0, 2),
+    "version": (0, 3, 4),
+    "blender": (4, 3, 2),
     "location": "Hotkey Ctrl + D to open the pie menu",
     "warning": "",
     "doc_url": "",
@@ -25,27 +25,27 @@ class BasicCollections(bpy.types.Operator):
         scene_collection.color_tag = "COLOR_04"  # Green
         bpy.context.scene.collection.children.link(scene_collection)
 
-        # Create the "Tech" collection and set its label color to cyan
-        tech_collection = bpy.data.collections.new("Tech")
-        tech_collection.color_tag = "COLOR_05"  # Cyan
-        bpy.context.scene.collection.children.link(tech_collection)
+        # Create the "Rendering" collection and set its label color to cyan
+        rendering_collection = bpy.data.collections.new("Rendering")
+        rendering_collection.color_tag = "COLOR_05"  # Cyan
+        bpy.context.scene.collection.children.link(rendering_collection)
 
-        # Create "gr_Lights" and "gr_Cam" collections inside "Tech" and set their label color to cyan
-        gr_lights_collection = bpy.data.collections.new("gr_Lights")
-        gr_lights_collection.color_tag = "COLOR_05"  # Cyan
-        tech_collection.children.link(gr_lights_collection)
+        # Create "Lights" and "Cam" collections inside "Rendering" and set their label color to cyan
+        lights_collection = bpy.data.collections.new("Lights")
+        lights_collection.color_tag = "COLOR_05"  # Cyan
+        rendering_collection.children.link(lights_collection)
 
-        gr_cam_collection = bpy.data.collections.new("gr_Cam")
-        gr_cam_collection.color_tag = "COLOR_05"  # Cyan
-        tech_collection.children.link(gr_cam_collection)
+        cam_collection = bpy.data.collections.new("Camera")
+        cam_collection.color_tag = "COLOR_05"  # Cyan
+        rendering_collection.children.link(cam_collection)
         
         return {'FINISHED'}
 
-# Setup Render Settings Operator
+# Setup Render Settings Operators
 class SetupRenderSettingsOperator(bpy.types.Operator):
     bl_idname = "render.setup_still_render_settings"
-    bl_label = "Still Render Settings"
-    bl_description = "Quickly set up render settings for stills"
+    bl_label = "Highres Render Settings"
+    bl_description = "Quickly set up render settings for high quality"
 
     def execute(self, context):
         cycles = bpy.context.scene.cycles
@@ -53,17 +53,19 @@ class SetupRenderSettingsOperator(bpy.types.Operator):
         cycles.device = 'GPU'
         cycles.use_adaptive_sampling = True
         cycles.adaptive_threshold = 0.01
-        cycles.samples = 800
+        cycles.samples = 1000
         cycles.use_denoising = True
         cycles.denoiser = 'OPENIMAGEDENOISE'
-
+        cycles.denoising_use_gpu = True
+        cycles.sampling_pattern = 'BLUE_NOISE'
+        cycles.use_animated_seed = True
 
         cycles.use_light_tree = False
 
-        cycles.max_bounces = 8
+        cycles.max_bounces = 12
         cycles.diffuse_bounces = 4
         cycles.glossy_bounces = 4
-        cycles.transmission_bounces = 8
+        cycles.transmission_bounces = 12
         cycles.volume_bounces = 0
         cycles.transparent_max_bounces = 8
         
@@ -72,13 +74,11 @@ class SetupRenderSettingsOperator(bpy.types.Operator):
         bpy.context.scene.render.image_settings.color_depth = '16'
         bpy.context.scene.render.use_persistent_data = True
 
-
         return {'FINISHED'}
     
-# Setup Render Settings Operator
 class SetupAnimationRenderSettingsOperator(bpy.types.Operator):
     bl_idname = "render.setup_animation_render_settings"
-    bl_label = "Animation Render Settings"
+    bl_label = "Lowres  Render Settings"
     bl_description = "Quickly set up render settings for animation"
 
     def execute(self, context):
@@ -87,9 +87,10 @@ class SetupAnimationRenderSettingsOperator(bpy.types.Operator):
         cycles.device = 'GPU'
         cycles.use_adaptive_sampling = True
         cycles.adaptive_threshold = 0.02
-        cycles.samples = 800
+        cycles.samples = 600
         cycles.use_denoising = True
-        cycles.denoiser = 'OPTIX'
+        cycles.denoiser = 'OPENIMAGEDENOISE'
+        cycles.denoising_use_gpu = True
 
         cycles.use_light_tree = False
 
@@ -100,17 +101,43 @@ class SetupAnimationRenderSettingsOperator(bpy.types.Operator):
         cycles.volume_bounces = 0
         cycles.transparent_max_bounces = 8
         
-        bpy.context.scene.render.image_settings.file_format = 'PNG'
-        bpy.context.scene.render.image_settings.color_mode = 'RGBA'
-        bpy.context.scene.render.image_settings.color_depth = '16'
         bpy.context.scene.render.use_persistent_data = True
 
         return {'FINISHED'}
+    
+#EXR_output
+class EXR_output(bpy.types.Operator):
+    bl_idname = "render.exr_output"
+    bl_label = "Mulitlayers EXR Output"
+    bl_description = "Set the output to EXR + adding Cryptomattes"
 
+    def execute(self, context):
+        
+        bpy.context.scene.render.image_settings.file_format = 'OPEN_EXR_MULTILAYER'
+        bpy.context.scene.render.image_settings.color_depth = '32'
+        bpy.context.scene.render.image_settings.exr_codec = 'DWAA'
+        bpy.context.scene.view_layers["ViewLayer"].use_pass_cryptomatte_object = True
+
+        return {'FINISHED'}
+    
+#PNG_output
+class PNG_output(bpy.types.Operator):
+    bl_idname = "render.png_output"
+    bl_label = "PNG 16bits Output"
+    bl_description = "Set the output to PNG 16bits"
+
+    def execute(self, context):
+        
+        bpy.context.scene.render.image_settings.file_format = 'PNG'
+        bpy.context.scene.render.image_settings.color_mode = 'RGBA'
+        bpy.context.scene.render.image_settings.color_depth = '16'
+
+        return {'FINISHED'}
+    
 # Add Light Operator
 def main(context):
     addon_dir = os.path.dirname(__file__)
-    blend_file_rel_path = 'Maxx_Light.blend'
+    blend_file_rel_path = 'Maxx_Utilities.blend'
     file_path = os.path.join(addon_dir, blend_file_rel_path)
     inner_path = 'Object'
     object_name = 'Aera'
@@ -138,7 +165,7 @@ class AddLightOperator(bpy.types.Operator):
         main(context)
         return {'FINISHED'}
 
-# Pie Menu
+# Main Pie Menu
 class RENDER_MT_pie_setup(bpy.types.Menu):
     bl_idname = "RENDER_MT_pie_setup"
     bl_label = "Maxx Utility"
@@ -146,20 +173,36 @@ class RENDER_MT_pie_setup(bpy.types.Menu):
     def draw(self, context):
         layout = self.layout
         pie = layout.menu_pie()
-        pie.operator("render.setup_still_render_settings", text="Stills Render Settings")
+        pie.operator("wm.call_menu_pie", text="Render Presets").name = "RENDER_MT_pie_render_presets"
         pie.operator("object.add_light_operator", text="Add Aera Light")
         pie.operator("collection.add_structure", text="Basic Collection structure")
         pie.separator()
-        pie.operator("render.setup_animation_render_settings", text="Animation Render Settings")
+        
+# Second Pie Menu for Render Presets
+class RENDER_MT_pie_render_presets(bpy.types.Menu):
+    bl_idname = "RENDER_MT_pie_render_presets"
+    bl_label = "Render Presets"
+
+    def draw(self, context):
+        layout = self.layout
+        pie = layout.menu_pie()
+        pie.operator("render.setup_still_render_settings", text="Highres Render Presets")
+        pie.operator("render.exr_output", text="Multilayers EXR Output")
+        pie.operator("render.setup_animation_render_settings", text="Lowres Render Preset")
+        pie.operator("render.png_output", text="PNG Output")
+
 
 addon_keymaps = []
 
 def register():
     bpy.utils.register_class(SetupRenderSettingsOperator)
     bpy.utils.register_class(SetupAnimationRenderSettingsOperator)
-    bpy.utils.register_class(AddLightOperator)
     bpy.utils.register_class(BasicCollections)
+    bpy.utils.register_class(AddLightOperator)
+    bpy.utils.register_class(RENDER_MT_pie_render_presets)
     bpy.utils.register_class(RENDER_MT_pie_setup)
+    bpy.utils.register_class(EXR_output)
+    bpy.utils.register_class(PNG_output)
 
     # Keymap registration
     wm = bpy.context.window_manager
@@ -170,12 +213,14 @@ def register():
 
 def unregister():
     bpy.utils.unregister_class(SetupRenderSettingsOperator)
-    bpy.utils.register_class(SetupAnimationRenderSettingsOperator)
-    bpy.utils.unregister_class(AddLightOperator)
+    bpy.utils.unregister_class(SetupAnimationRenderSettingsOperator)
     bpy.utils.unregister_class(BasicCollections)
+    bpy.utils.register_class(AddLightOperator)
+    bpy.utils.unregister_class(RENDER_MT_pie_render_presets)
     bpy.utils.unregister_class(RENDER_MT_pie_setup)
-
-    # Keymap unregister
+    bpy.utils.register_class(EXR_output)
+    bpy.utils.register_class(PNG_output)
+    
     wm = bpy.context.window_manager
     for km, kmi in addon_keymaps:
         km.keymap_items.remove(kmi)
