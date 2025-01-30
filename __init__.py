@@ -41,7 +41,7 @@ class BasicCollections(bpy.types.Operator):
         
         return {'FINISHED'}
 
-# Setup Render Settings Operators
+# HighRes settings
 class SetupRenderSettingsOperator(bpy.types.Operator):
     bl_idname = "render.setup_still_render_settings"
     bl_label = "Highres Render Settings"
@@ -76,6 +76,7 @@ class SetupRenderSettingsOperator(bpy.types.Operator):
 
         return {'FINISHED'}
     
+# LowRes settings    
 class SetupAnimationRenderSettingsOperator(bpy.types.Operator):
     bl_idname = "render.setup_animation_render_settings"
     bl_label = "Lowres  Render Settings"
@@ -105,7 +106,7 @@ class SetupAnimationRenderSettingsOperator(bpy.types.Operator):
 
         return {'FINISHED'}
     
-#EXR_output
+# EXR_output
 class EXR_output(bpy.types.Operator):
     bl_idname = "render.exr_output"
     bl_label = "Mulitlayers EXR Output"
@@ -120,7 +121,7 @@ class EXR_output(bpy.types.Operator):
 
         return {'FINISHED'}
     
-#PNG_output
+# PNG_output
 class PNG_output(bpy.types.Operator):
     bl_idname = "render.png_output"
     bl_label = "PNG 16bits Output"
