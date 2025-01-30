@@ -12,9 +12,11 @@ Maxx Light Features :
   - Gradient power : create a gradient and can be adjust with this setting (useful in reflection for exemple and with a little spread)
   - Round Corner : to break the sharp corner of the Square
   - WB coloration : to rapidly colored the light based on kelvin temperature
-  - A damped track is already setup, you can simply eye drop any object to make it work
+  - Procedural Gobo shape and animation
 
 <img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/d1a1adcb-d02b-4441-824e-1f98978f3fd5)" width="250" height="250"/> <img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/cc348784-4695-470a-86e4-492ea0c11ce7" width="250" height="250"/>
+
+![Gobo](https://github.com/user-attachments/assets/c4e9fad3-6366-4490-bd8f-904ab934a3b9)
 
 
 ## Quick render settings
