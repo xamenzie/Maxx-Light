@@ -165,6 +165,38 @@ class AddLightOperator(bpy.types.Operator):
     def execute(self, context):
         main(context)
         return {'FINISHED'}
+    
+# Viewport Wireframe
+class viewport_wireframe(bpy.types.Operator):
+    bl_idname = "viewport.wireframe"
+    bl_label = "View Wireframe"
+    bl_description = "Activate the Wireframe in object mode"
+    
+    def execute(self, context):
+        for area in bpy.context.screen.areas:
+            if area.type == 'VIEW_3D':  # Check if it's a 3D Viewport
+                for space in area.spaces:
+                    if space.type == 'VIEW_3D':
+                        # Toggle wireframes visibility
+                        space.overlay.show_wireframes = not space.overlay.show_wireframes
+                        return {'FINISHED'}
+        return {'CANCELLED'}
+
+# Viewport Faces Normals
+class viewport_facenormal(bpy.types.Operator):
+    bl_idname = "viewport.facenormal"
+    bl_label = "View Faces Normals"
+    bl_description = "Visualize the faces normals"
+    
+    def execute(self, context):
+        for area in bpy.context.screen.areas:
+            if area.type == 'VIEW_3D':  # Check if it's a 3D Viewport
+                for space in area.spaces:
+                    if space.type == 'VIEW_3D':
+                        # Toggle wireframes visibility
+                        space.overlay.show_face_orientation = not space.overlay.show_face_orientation
+                        return {'FINISHED'}
+        return {'CANCELLED'}
 
 # Main Pie Menu
 class RENDER_MT_pie_setup(bpy.types.Menu):
@@ -177,7 +209,7 @@ class RENDER_MT_pie_setup(bpy.types.Menu):
         pie.operator("wm.call_menu_pie", text="Render Presets").name = "RENDER_MT_pie_render_presets"
         pie.operator("object.add_light_operator", text="Add Aera Light")
         pie.operator("collection.add_structure", text="Basic Collection structure")
-        pie.separator()
+        pie.operator("wm.call_menu_pie", text="Viewport Presets").name = "viewport_presets"
         
 # Second Pie Menu for Render Presets
 class RENDER_MT_pie_render_presets(bpy.types.Menu):
@@ -191,6 +223,19 @@ class RENDER_MT_pie_render_presets(bpy.types.Menu):
         pie.operator("render.exr_output", text="Multilayers EXR Output")
         pie.operator("render.setup_animation_render_settings", text="Lowres Render Preset")
         pie.operator("render.png_output", text="PNG Output")
+        
+# Third Pie Menu for Render Presets
+class RENDER_MT_pie_render_presets(bpy.types.Menu):
+    bl_idname = "viewport_presets"
+    bl_label = "Viewport Presets"
+
+    def draw(self, context):
+        layout = self.layout
+        pie = layout.menu_pie()
+        pie.separator()
+        pie.separator()
+        pie.operator("viewport.facenormal", text="View Faces Normals")
+        pie.operator("viewport.wireframe", text="View Wireframe")
 
 
 addon_keymaps = []
@@ -204,6 +249,8 @@ def register():
     bpy.utils.register_class(RENDER_MT_pie_setup)
     bpy.utils.register_class(EXR_output)
     bpy.utils.register_class(PNG_output)
+    bpy.utils.register_class(viewport_wireframe)
+    bpy.utils.register_class(viewport_facenormal)
 
     # Keymap registration
     wm = bpy.context.window_manager
@@ -221,6 +268,8 @@ def unregister():
     bpy.utils.unregister_class(RENDER_MT_pie_setup)
     bpy.utils.register_class(EXR_output)
     bpy.utils.register_class(PNG_output)
+    bpy.utils.register_class(viewport_wireframe)
+    bpy.utils.register_class(viewport_facenormal)
     
     wm = bpy.context.window_manager
     for km, kmi in addon_keymaps:
