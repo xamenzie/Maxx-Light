@@ -18,33 +18,50 @@ Maxx Light Features :
 
 ## Quick render settings
 
-Set the basics render settings for a nice and quick render, which change automatically these settings when used :
+### High Res preset
 
   - Set the device to GPU
-  - Set adaptive sampling with a threshold at 0.02 and 800 samples
-  - Activate Denoise in the render
-  - Desactivate the denoising in render (meant to use another denoiser like SID denoiser addon)
-  - Desactivate light tree
-  - Setup simple bounces for the lights
-  - Set the render output to PNG RGBA 16bits
+  - Set adaptive sampling with a threshold at 0.01 and 1000 samples
+  - Activate Open image denoise in the render
+  - Set appropriate lights bounces
   - Activate persitent data
+
+### Low Res preset
+
+  - Set the device to GPU
+  - Set adaptive sampling with a threshold at 0.02 and 600 samples
+  - Activate Open image denoise in the render
+  - Set appropriate lights bounces
+  - Activate persitent data
+
+### EXR Output
+
+  - Set output to EXR multilayer, DWAA 32 bits
+  - Set the cryptomatte
+
+### PNG Output
+
+  - Set output to PNG 16 bits RGBA
 
 ## Basic Collections structure
 
 Create basic collection strucure to keep organised. It presents with this tree structure :
 
 __ Scene<br>
-__ Tech<br>
-_____ gr_Lights<br>
-_____ gr_Cam<br>
-
-## To do
-
-  - Add the ability the add image texture or noise pattern in the light very easily
-  - Import the light at the current cursor position
-  - Exponant the light power
+__ Rendering<br>
+_____ Lights<br>
+_____ Cam<br>
 
 ## Updates
+
+### v0.3.3
+
+  Features & Fix
+
+  - Added a double pie menu for the quick render presets settings
+  - Added Gobo shape and animation in the Aera light
+  - Adjusts the presets settings according to date we are living on
+  - Correct minors bugs in the script
 
 ### v0.3.2
 
