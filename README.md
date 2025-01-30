@@ -14,8 +14,7 @@ Maxx Light Features :
   - WB coloration : to rapidly colored the light based on kelvin temperature
   - Procedural Gobo shape and animation
 
-<img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/d1a1adcb-d02b-4441-824e-1f98978f3fd5)" width="250" height="250"/> <img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/cc348784-4695-470a-86e4-492ea0c11ce7" width="250" height="250"/> <img src="https://github.com/xamenzie/Maxx-Utilities/assets/c4e9fad3-6366-4490-bd8f-904ab934a3b9" width="250" height="250"/>
-
+<img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/d1a1adcb-d02b-4441-824e-1f98978f3fd5)" width="250" height="250"/> <img src="https://github.com/xamenzie/Maxx-Utilities/assets/50946132/cc348784-4695-470a-86e4-492ea0c11ce7" width="250" height="250"/> <img src="https://github.com/user-attachments/assets/aced172c-b218-4d5e-b94e-ef78f9d379c7" width="250" height="250"/>
 
 ## Quick render settings
 
