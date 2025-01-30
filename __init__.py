@@ -225,7 +225,7 @@ class RENDER_MT_pie_render_presets(bpy.types.Menu):
         pie.operator("render.png_output", text="PNG Output")
         
 # Third Pie Menu for Render Presets
-class RENDER_MT_pie_render_presets(bpy.types.Menu):
+class RENDER_MT_pie_viewport_presets(bpy.types.Menu):
     bl_idname = "viewport_presets"
     bl_label = "Viewport Presets"
 
@@ -245,6 +245,7 @@ def register():
     bpy.utils.register_class(SetupAnimationRenderSettingsOperator)
     bpy.utils.register_class(BasicCollections)
     bpy.utils.register_class(AddLightOperator)
+    bpy.utils.register_class(RENDER_MT_pie_viewport_presets)
     bpy.utils.register_class(RENDER_MT_pie_render_presets)
     bpy.utils.register_class(RENDER_MT_pie_setup)
     bpy.utils.register_class(EXR_output)
@@ -265,6 +266,7 @@ def unregister():
     bpy.utils.unregister_class(BasicCollections)
     bpy.utils.register_class(AddLightOperator)
     bpy.utils.unregister_class(RENDER_MT_pie_render_presets)
+    bpy.utils.register_class(RENDER_MT_pie_viewport_presets)
     bpy.utils.unregister_class(RENDER_MT_pie_setup)
     bpy.utils.register_class(EXR_output)
     bpy.utils.register_class(PNG_output)
